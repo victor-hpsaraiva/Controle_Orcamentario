@@ -1,0 +1,205 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background: #dfe3f0;
+  padding: 30px;
+}
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+  background: white;
+  border-radius: 25px;
+  display: flex;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+/* Menu lateral */
+.sidebar {
+  width: 220px;
+  background: #111;
+  color: white;
+  padding: 40px 25px;
+}
+
+.sidebar h2 {
+  margin-bottom: 40px;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sidebar a {
+  color: #aaa;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.sidebar a:hover {
+  color: white;
+}
+
+/* Conteúdo */
+.content {
+  flex: 1;
+  padding: 40px;
+}
+
+header {
+  margin-bottom: 25px;
+}
+
+header h1 {
+  font-size: 32px;
+  color: #222;
+}
+
+header p {
+  color: #777;
+  margin-top: 5px;
+}
+
+/* Cards de resumo */
+.summary {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.card {
+  flex: 1;
+  background: #f5f7fb;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+.card h3 {
+  font-size: 15px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+/* Mensagem */
+#message {
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+/* Formulários */
+.forms {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+form {
+  flex: 1;
+  background: #f5f7fb;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+form h2 {
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background: #111;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover {
+  background: #2f80ed;
+}
+
+/* Lista de orçamentos */
+#budgetList {
+  margin-top: 15px;
+}
+
+.budget-card {
+  background: #f9fafb;
+  padding: 18px;
+  border-radius: 15px;
+  margin-bottom: 15px;
+  border-left: 6px solid green;
+}
+
+.budget-card.red {
+  border-left-color: red;
+}
+
+.budget-card h3 {
+  margin-bottom: 8px;
+}
+
+.budget-card p {
+  margin: 5px 0;
+}
+
+.expense {
+  background: white;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.delete-btn {
+  width: auto;
+  background: #dc2626;
+  padding: 8px 12px;
+  font-size: 12px;
+}
+
+.delete-btn:hover {
+  background: #b91c1c;
+}
+
+/* Responsivo */
+@media (max-width: 800px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+  }
+
+  .summary,
+  .forms {
+    flex-direction: column;
+  }
+}

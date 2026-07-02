@@ -1,0 +1,69 @@
+/* sleciona todos os elementos da página */
+* {
+    margin: 0;
+    /*remove espaçamentos extremos padrão*/
+    padding: 0;
+    /*remove espaçamentos internos padrão*/
+    box-sizing: border-box;
+    /* faz largura/altura considera padding e borda facilita layout*/
+    font-family: Arial, sans-serif;
+    /*define a fonte do site*/
+}
+
+body {
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    /*criar o fundo com degradê azul claro*/
+    height: 100vh;
+    /*altura da tela inteira */
+    display: flex;
+    /*ativa o flexBox para organizar os elementos */
+    justify-content: center;
+    /*centraliza horizontal */
+    align-items: center;
+    /*centraliza vertical */
+}
+
+.container {
+    text-align: center;
+    /*centraliza o texto dentro da div*/
+    color: #fff;
+    /*deixa o texto branco*/
+}
+
+h1 {
+    margin-bottom: 40px;
+    /*espaço a baixo do título*/
+    font-size: 32px;
+    /*aumenta o tamnho da letra*/
+}
+
+.btn-iniciar {
+    background-color: #fff;
+    /*fundo branco*/
+    color: #0077ff;
+    /*texto azul*/
+    border: none;
+    /*remove borda padrão*/
+    padding: 20px 50px;
+    /* aumenta o tamanho do botão*/
+    font-size: 22px;
+    /*texto maior*/
+    border-radius: 12px;
+    /*deixa o botão arrendondado*/
+    cursor: pointer;
+    /*muda o mouse para "mãozinha"*/
+    transition: 0.3s;
+    /*anima mudança (houver suave)*/
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    /*sombra para dar efeito de profundidade*/
+}
+
+.btn-iniciar:hover {
+    /*hover ativa quando o mouse está sobre o botão*/
+    background-color: #0077ff;
+    /*fundo fica azul*/
+    color: #fff;
+    /*texto fica branco*/
+    transform: scale(1.05);
+    /*botão cresce um pouco*/
+}
