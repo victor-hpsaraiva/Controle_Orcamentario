@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Controle de Orçamento</title>
+<link rel="stylesheet" href="css/orcamento.css">
+  
+
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Menu lateral -->
+    <aside class="sidebar">
+      <h2>Orçamento</h2>
+
+      <nav>
+        <a href="#">Dashboard</a>
+        <a href="#">Gastos</a>
+        <a href="#">Resumo</a>
+      </nav>
+    </aside>
+
+    <!-- Conteúdo principal -->
+    <main class="content">
+
+      <header>
+        <h1>Controle de Orçamento</h1>
+        <p>Cadastre orçamentos e acompanhe seus gastos</p>
+      </header>
+
+      <!-- Resumo -->
+      <section class="summary">
+        <div class="card">
+          <h3>Orçamento Total</h3>
+          <p id="totalBudget">R$ 0,00</p>
+        </div>
+
+        <div class="card">
+          <h3>Total Gasto</h3>
+          <p id="totalSpent">R$ 0,00</p>
+        </div>
+
+        <div class="card">
+          <h3>Restante</h3>
+          <p id="remaining">R$ 0,00</p>
+        </div>
+      </section>
+
+      <!-- Mensagens -->
+      <p id="message"></p>
+
+      <!-- Formulários -->
+      <section class="forms">
+
+        <form id="budgetForm">
+          <h2>Novo Orçamento</h2>
+
+          <input type="text" id="budgetName" placeholder="Nome do orçamento" required>
+          <input type="number" id="budgetAmount" placeholder="Valor" step="0.01" required>
+
+          <button type="submit">Cadastrar</button>
+        </form>
+
+        <form id="expenseForm">
+          <h2>Novo Gasto</h2>
+
+          <select id="expenseBudget" required>
+            <option value="">Selecione um orçamento</option>
+          </select>
+
+          <input type="text" id="expenseDescription" placeholder="Descrição do gasto" required>
+          <input type="text" id="expenseCategory" placeholder="Categoria">
+          <input type="number" id="expenseAmount" placeholder="Valor" step="0.01" required>
+
+          <button type="submit">Adicionar</button>
+        </form>
+
+      </section>
+
+      <!-- Lista de orçamentos -->
+      <section>
+        <h2>Orçamentos cadastrados</h2>
+        <div id="budgetList"></div>
+      </section>
+
+    </main>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
