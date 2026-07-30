@@ -1,34 +1,117 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/login.css">
-    <title></title>
+    <title>Teste API</title>
 </head>
 <body>
-    
-     <main>
-        <section>
-            <div id="form">
-                <label>Email:</label>
-                <input type="email" id="emailLogin">
- 
-                <label>Senha:</label>
-                <input type="password" id="senhaLogin">
- 
-             
-                   <button onclick="login()">Login</button>
 
-                   <div"><label for="cadastro">Não possui conta? <a href="Cadastro.html">Cadastre-se Aqui</a></label></div>
-            </div>
+<h2>Criar Orçamento</h2>
 
-        </section>
-    </main>
- 
-    <script src="js/scriptLogin.js"></script>
- 
+<input id="budgetName" placeholder="Nome">
+<input id="budgetAmount" placeholder="Valor">
 
+<button onclick="createBudget()">
+    Criar
+</button>
+
+<hr>
+
+<h2>Criar Despesa</h2>
+
+<input id="expenseBudgetId" placeholder="ID Orçamento">
+<input id="expenseDescription" placeholder="Descrição">
+<input id="expenseCategory" placeholder="Categoria">
+<input id="expenseAmount" placeholder="Valor">
+
+<button onclick="createExpense()">
+    Criar Despesa
+</button>
+
+<hr>
+
+<h2>Consultas</h2>
+
+<button onclick="getBudgets()">
+    Listar Orçamentos
+</button>
+
+<button onclick="getExpenses()">
+    Listar Despesas
+</button>
+
+<hr>
+
+<pre id="resultado"></pre>
+
+<script>
+
+const API = "http://localhost:3000";
+
+function mostrar(dados){
+    document.getElementById("resultado").textContent =
+        JSON.stringify(dados, null, 2);
+}
+
+async function createBudget(){
+
+    const response = await fetch(
+        `${API}/budgets`,
+        {
+            method: "POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body: JSON.stringify({
+                name: document.getElementById("budgetName").value,
+                amount: Number(document.getElementById("budgetAmount").value)
+            })
+        }
+    );
+
+    mostrar(await response.json());
+}
+
+async function createExpense(){
+
+    const response = await fetch(
+        `${API}/expenses`,
+        {
+            method: "POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body: JSON.stringify({
+                budgetId: Number(document.getElementById("expenseBudgetId").value),
+                description: document.getElementById("expenseDescription").value,
+                category: document.getElementById("expenseCategory").value,
+                amount: Number(document.getElementById("expenseAmount").value)
+            })
+        }
+    );
+
+    mostrar(await response.json());
+}
+
+async function getBudgets(){
+
+    const response = await fetch(
+        `${API}/budgets`
+    );
+
+    mostrar(await response.json());
+}
+
+async function getExpenses(){
+
+    const response = await fetch(
+        `${API}/expenses`
+    );
+
+    mostrar(await response.json());
+}
+
+</script>
 
 </body>
 </html>
