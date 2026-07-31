@@ -41,6 +41,11 @@ async function login() {
             JSON.stringify(data.user)
         );
 
+        localStorage.setItem(
+            "token",
+            data.token
+        );
+
         window.location.href =
             "home.html";
 

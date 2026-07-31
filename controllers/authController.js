@@ -1,5 +1,5 @@
-const User =
-require("../models/User");
+const User = require("../models/User");
+const jwt = require("jsonwebtoken");s
 
 exports.register = (req,res) => {
 
@@ -15,8 +15,7 @@ exports.register = (req,res) => {
     if(exists){
 
         return res.status(400).json({
-            error:
-            "Email já cadastrado"
+            error:"Email já cadastrado"
         });
 
     }
@@ -29,8 +28,7 @@ exports.register = (req,res) => {
         );
 
     res.status(201).json({
-        message:
-        "Usuário criado",
+        message:"Usuário criado",
         user
     });
 };
@@ -51,15 +49,25 @@ exports.login = (req,res) => {
     ){
 
         return res.status(401).json({
-            error:
-            "Email ou senha inválidos"
+            error:"Email ou senha inválidos"
         });
 
     }
 
+    const token = jwt.sign(
+        {
+            id: user.id,
+            email: user.email
+        },
+        process.env.JWT_SECRET,
+        {
+            expiresIn:"24h"
+        }
+    );
+
     res.json({
-        message:
-        "Login realizado",
+        message:"Login realizado",
+        token,
         user
     });
 };
