@@ -1,4 +1,5 @@
-const User = require("../models/User");
+const User =
+require("../models/User");
 
 exports.register = (req,res) => {
 
@@ -27,7 +28,11 @@ exports.register = (req,res) => {
             password
         );
 
-    res.status(201).json(user);
+    res.status(201).json({
+        message:
+        "Usuário criado",
+        user
+    });
 };
 
 exports.login = (req,res) => {
@@ -47,7 +52,7 @@ exports.login = (req,res) => {
 
         return res.status(401).json({
             error:
-            "Login inválido"
+            "Email ou senha inválidos"
         });
 
     }

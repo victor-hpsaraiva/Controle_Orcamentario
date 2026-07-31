@@ -1,29 +1,56 @@
-const API = 'http://localhost:3000/tarefas'
-const API_LOGIN = 'http://localhost:3000/login'
- 
-// Função Login
+const API_URL = "http://localhost:3000/auth/login";
 
-function login() {
-    const email = document.getElementById('emailLogin').value
-    const senha = document.getElementById('senhaLogin').value
+async function login() {
 
-    fetch(API_LOGIN , {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, senha })
-    })
-    .then(res => {
-        if (!res.ok) {
-            throw new Error("Login inválido")
+    const email =
+        document.getElementById("emailLogin").value;
+
+    const password =
+        document.getElementById("senhaLogin").value;
+
+    try {
+
+        const response = await fetch(
+            API_URL,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    email,
+                    password
+                })
+            }
+        );
+
+        const data =
+            await response.json();
+
+        if (!response.ok) {
+
+            alert(data.error);
+
+            return;
         }
-        return res.json()
-    })
-    .then(data => {
-        window.alert("Login realizado!!")
-        window.location.href = "realizado.html"
-    })
-    .catch(error => {
-        alert("Email ou senha incorretos")
-        console.error("Erro: ", error)
-    })
+
+        alert("Login realizado com sucesso!");
+
+        localStorage.setItem(
+            "usuario",
+            JSON.stringify(data.user)
+        );
+
+        window.location.href =
+            "home.html";
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Erro ao conectar com a API."
+        );
+
+    }
 }
