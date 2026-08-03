@@ -3,6 +3,16 @@ const API_URL = "http://localhost:3000";
 const budgetForm = document.getElementById("budgetForm");
 const expenseForm = document.getElementById("expenseForm");
 
+const token =
+    localStorage.getItem("token");
+
+if (!token) {
+
+    window.location.href =
+        "telaLogin.html";
+}
+
+
 const budgetList = document.getElementById("budgetList");
 
 function formatMoney(value) {
@@ -21,7 +31,13 @@ async function loadBudgets() {
     try {
 
         const response = await fetch(
-            `${API_URL}/budgets`
+            `${API_URL}/budgets`,
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                }
+            }
         );
 
         const budgets =
@@ -104,8 +120,8 @@ budgetForm.addEventListener(
                 {
                     method: "POST",
                     headers: {
-                        "Content-Type":
-                        "application/json"
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`
                     },
                     body: JSON.stringify({
                         name,
@@ -170,7 +186,7 @@ expenseForm.addEventListener(
                     method: "POST",
                     headers: {
                         "Content-Type":
-                        "application/json"
+                            "application/json"
                     },
                     body: JSON.stringify({
                         budgetId,
@@ -199,23 +215,33 @@ expenseForm.addEventListener(
     }
 );
 
-async function deleteBudget(id){
+async function deleteBudget(id) {
 
-    try{
+    try {
 
         await fetch(
             `${API_URL}/budgets/${id}`,
             {
-                method:"DELETE"
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
             }
         );
-
         loadBudgets();
 
-    }catch(error){
+    } catch (error) {
 
         console.error(error);
 
+    }
+    function logout() {
+
+        localStorage.removeItem("token");
+        localStorage.removeItem("usuario");
+
+        window.location.href =
+            "telaLogin.html";
     }
 }
 

@@ -1,29 +1,53 @@
-const API = 'http://localhost:3000/tarefas'
-const API_LOGIN = 'http://localhost:3000/login'
- 
-// Função Login
+exports.login = async (req, res) => {
 
-function login() {
-    const email = document.getElementById('emailLogin').value
-    const senha = document.getElementById('senhaLogin').value
+    try {
 
-    fetch(API_LOGIN , {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, senha })
-    })
-    .then(res => {
-        if (!res.ok) {
-            throw new Error("Login inválido")
+        const {
+            email,
+            password
+        } = req.body;
+
+        const user =
+            await User.findOne({
+                email
+            });
+
+        if (
+            !user ||
+            user.password !== password
+        ) {
+
+            return res.status(401).json({
+                error: "Email ou senha inválidos"
+            });
+
         }
-        return res.json()
-    })
-    .then(data => {
-        window.alert("Login realizado!!")
-        window.location.href = "realizado.html"
-    })
-    .catch(error => {
-        alert("Email ou senha incorretos")
-        console.error("Erro: ", error)
-    })
-}
+
+        const token = jwt.sign(
+            {
+                id: user._id,
+                email: user.email
+            },
+            process.env.JWT_SECRET,
+            {
+                expiresIn: "24h"
+            }
+        );
+
+        return res.json({
+            message: "Login realizado",
+            token,
+            user
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        return res.status(500).json({
+            error: "Erro ao realizar login"
+        });
+
+    }
+
+};
