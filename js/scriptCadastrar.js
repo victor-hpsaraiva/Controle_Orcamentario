@@ -1,33 +1,22 @@
-const API_URL =
-    "http://localhost:3000/auth/register";
+const API_URL = "http://localhost:3000/auth/register";
 
 async function cadastrarUsuario() {
 
     const name =
-        document.getElementById(
-            "nome"
-        ).value;
+        document.getElementById("nome").value;
 
     const email =
-        document.getElementById(
-            "email"
-        ).value;
+        document.getElementById("email").value;
 
     const password =
-        document.getElementById(
-            "senha"
-        ).value;
+        document.getElementById("senha").value;
 
     const confirsenha =
-        document.getElementById(
-            "confirsenha"
-        ).value;
+        document.getElementById("confirsenha").value;
 
-    if(password !== confirsenha){
+    if (password !== confirsenha) {
 
-        alert(
-            "As senhas não coincidem."
-        );
+        alert("As senhas não coincidem.");
 
         return;
     }
@@ -38,12 +27,12 @@ async function cadastrarUsuario() {
             await fetch(
                 API_URL,
                 {
-                    method:"POST",
-                    headers:{
+                    method: "POST",
+                    headers: {
                         "Content-Type":
                         "application/json"
                     },
-                    body:JSON.stringify({
+                    body: JSON.stringify({
                         name,
                         email,
                         password
@@ -54,9 +43,12 @@ async function cadastrarUsuario() {
         const data =
             await response.json();
 
-        if(!response.ok){
+        if (!response.ok) {
 
-            alert(data.error);
+            alert(
+                data.error ||
+                "Erro ao cadastrar."
+            );
 
             return;
         }
@@ -68,7 +60,7 @@ async function cadastrarUsuario() {
         window.location.href =
             "telaLogin.html";
 
-    } catch(error){
+    } catch (error) {
 
         console.error(error);
 
@@ -78,4 +70,3 @@ async function cadastrarUsuario() {
 
     }
 }
-``

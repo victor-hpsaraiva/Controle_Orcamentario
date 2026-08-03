@@ -1,34 +1,27 @@
-const users = [];
+const mongoose = require("mongoose");
 
-let nextUserId = 1;
+const UserSchema = new mongoose.Schema({
 
-module.exports = {
-
-    create(
-        name,
-        email,
-        password
-    ){
-
-        const user = {
-
-            id: nextUserId++,
-            name,
-            email,
-            password
-
-        };
-
-        users.push(user);
-
-        return user;
+    name: {
+        type: String,
+        required: true
     },
 
-    findByEmail(email){
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
 
-        return users.find(
-            user =>
-            user.email === email
-        );
+    password: {
+        type: String,
+        required: true
     }
-};
+
+});
+
+module.exports =
+    mongoose.model(
+        "User",
+        UserSchema
+    );

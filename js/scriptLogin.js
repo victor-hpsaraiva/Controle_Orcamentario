@@ -1,61 +1,53 @@
-const API_URL = "http://localhost:3000/auth/login";
-
-async function login() {
-
-    const email =
-        document.getElementById("emailLogin").value;
-
-    const password =
-        document.getElementById("senhaLogin").value;
+exports.login = async (req, res) => {
 
     try {
 
-        const response = await fetch(
-            API_URL,
+        const {
+            email,
+            password
+        } = req.body;
+
+        const user =
+            await User.findOne({
+                email
+            });
+
+        if (
+            !user ||
+            user.password !== password
+        ) {
+
+            return res.status(401).json({
+                error: "Email ou senha inválidos"
+            });
+
+        }
+
+        const token = jwt.sign(
             {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    email,
-                    password
-                })
+                id: user._id,
+                email: user.email
+            },
+            process.env.JWT_SECRET,
+            {
+                expiresIn: "24h"
             }
         );
 
-        const data =
-            await response.json();
-
-        if (!response.ok) {
-
-            alert(data.error);
-
-            return;
-        }
-
-        alert("Login realizado com sucesso!");
-
-        localStorage.setItem(
-            "usuario",
-            JSON.stringify(data.user)
-        );
-
-        localStorage.setItem(
-            "token",
-            data.token
-        );
-
-        window.location.href =
-            "home.html";
+        return res.json({
+            message: "Login realizado",
+            token,
+            user
+        });
 
     } catch (error) {
 
         console.error(error);
 
-        alert(
-            "Erro ao conectar com a API."
-        );
+        return res.status(500).json({
+            error: "Erro ao realizar login"
+        });
 
     }
-}
+
+};
