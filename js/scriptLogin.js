@@ -1,53 +1,66 @@
-exports.login = async (req, res) => {
+const API_URL = "http://localhost:3000/auth/login";
+
+async function login() {
+
+    const email =
+        document.getElementById("emailLogin").value;
+
+    const password =
+        document.getElementById("senhaLogin").value;
 
     try {
 
-        const {
-            email,
-            password
-        } = req.body;
-
-        const user =
-            await User.findOne({
-                email
-            });
-
-        if (
-            !user ||
-            user.password !== password
-        ) {
-
-            return res.status(401).json({
-                error: "Email ou senha inválidos"
-            });
-
-        }
-
-        const token = jwt.sign(
+        const response = await fetch(
+            API_URL,
             {
-                id: user._id,
-                email: user.email
-            },
-            process.env.JWT_SECRET,
-            {
-                expiresIn: "24h"
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    email,
+                    password
+                })
             }
         );
 
-        return res.json({
-            message: "Login realizado",
-            token,
-            user
-        });
+        const data =
+            await response.json();
+
+        if (!response.ok) {
+
+            alert(
+                data.error ||
+                "Erro ao realizar login"
+            );
+
+            return;
+        }
+
+        localStorage.setItem(
+            "token",
+            data.token
+        );
+
+        localStorage.setItem(
+            "usuario",
+            JSON.stringify(data.user)
+        );
+
+        alert(
+            "Login realizado com sucesso!"
+        );
+
+        window.location.href =
+            "index.html";
 
     } catch (error) {
 
         console.error(error);
 
-        return res.status(500).json({
-            error: "Erro ao realizar login"
-        });
+        alert(
+            "Erro ao conectar com a API."
+        );
 
     }
-
-};
+}
