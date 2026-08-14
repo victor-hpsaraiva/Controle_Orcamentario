@@ -1,117 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
-    <title>Teste API</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Spend</title>
+
+    <link rel="stylesheet" href="css/teste.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap"
+        rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
-<h2>Criar Orçamento</h2>
+    <header>
 
-<input id="budgetName" placeholder="Nome">
-<input id="budgetAmount" placeholder="Valor">
+        <div class="logo">
+            <img src="img/logo.png" alt="Smart Spend">
+            <span>Smart</span>
+            <span style="color: black;">Spend</span>
+        </div>
 
-<button onclick="createBudget()">
-    Criar
-</button>
 
-<hr>
+        <div class="actions">
 
-<h2>Criar Despesa</h2>
+            <a href="login.html" class="login">
+                Entrar
+            </a>
 
-<input id="expenseBudgetId" placeholder="ID Orçamento">
-<input id="expenseDescription" placeholder="Descrição">
-<input id="expenseCategory" placeholder="Categoria">
-<input id="expenseAmount" placeholder="Valor">
+            <a href="cadastro.html" class="register">
+                Criar conta
+            </a>
 
-<button onclick="createExpense()">
-    Criar Despesa
-</button>
+        </div>
 
-<hr>
-
-<h2>Consultas</h2>
-
-<button onclick="getBudgets()">
-    Listar Orçamentos
-</button>
-
-<button onclick="getExpenses()">
-    Listar Despesas
-</button>
-
-<hr>
-
-<pre id="resultado"></pre>
-
-<script>
-
-const API = "http://localhost:3000";
-
-function mostrar(dados){
-    document.getElementById("resultado").textContent =
-        JSON.stringify(dados, null, 2);
-}
-
-async function createBudget(){
-
-    const response = await fetch(
-        `${API}/budgets`,
-        {
-            method: "POST",
-            headers:{
-                "Content-Type":"application/json"
-            },
-            body: JSON.stringify({
-                name: document.getElementById("budgetName").value,
-                amount: Number(document.getElementById("budgetAmount").value)
-            })
-        }
-    );
-
-    mostrar(await response.json());
-}
-
-async function createExpense(){
-
-    const response = await fetch(
-        `${API}/expenses`,
-        {
-            method: "POST",
-            headers:{
-                "Content-Type":"application/json"
-            },
-            body: JSON.stringify({
-                budgetId: Number(document.getElementById("expenseBudgetId").value),
-                description: document.getElementById("expenseDescription").value,
-                category: document.getElementById("expenseCategory").value,
-                amount: Number(document.getElementById("expenseAmount").value)
-            })
-        }
-    );
-
-    mostrar(await response.json());
-}
-
-async function getBudgets(){
-
-    const response = await fetch(
-        `${API}/budgets`
-    );
-
-    mostrar(await response.json());
-}
-
-async function getExpenses(){
-
-    const response = await fetch(
-        `${API}/expenses`
-    );
-
-    mostrar(await response.json());
-}
-
-</script>
+    </header>
 
 </body>
+
 </html>

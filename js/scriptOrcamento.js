@@ -1,7 +1,13 @@
 const API_URL = "http://localhost:3000";
 
-const budgetForm = document.getElementById("budgetForm");
-const expenseForm = document.getElementById("expenseForm");
+const budgetForm =
+    document.getElementById("budgetForm");
+
+const expenseForm =
+    document.getElementById("expenseForm");
+
+const budgetList =
+    document.getElementById("budgetList");
 
 const token =
     localStorage.getItem("token");
@@ -10,20 +16,19 @@ if (!token) {
 
     window.location.href =
         "telaLogin.html";
+
 }
-
-
-const budgetList = document.getElementById("budgetList");
 
 function formatMoney(value) {
-    return Number(value).toLocaleString("pt-BR", {
-        style: "currency",
-        currency: "BRL"
-    });
-}
 
-function showMessage(text) {
-    console.log(text);
+    return Number(value).toLocaleString(
+        "pt-BR",
+        {
+            style: "currency",
+            currency: "BRL"
+        }
+    );
+
 }
 
 async function loadBudgets() {
@@ -43,12 +48,42 @@ async function loadBudgets() {
         const budgets =
             await response.json();
 
+        const expenseBudget =
+            document.getElementById(
+                "expenseBudget"
+            );
+
+        expenseBudget.innerHTML = `
+            <option value="">
+                Selecione um orçamento
+            </option>
+        `;
+
         budgetList.innerHTML = "";
 
         budgets.forEach(budget => {
 
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+            option.value =
+                budget.id;
+
+            option.textContent =
+                `${budget.name} - ${formatMoney(
+                    budget.remaining
+                )}`;
+
+            expenseBudget.appendChild(
+                option
+            );
+
             const div =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
 
             div.innerHTML = `
 
@@ -56,17 +91,23 @@ async function loadBudgets() {
 
                 <p>
                     Valor:
-                    ${formatMoney(budget.amount)}
+                    ${formatMoney(
+                        budget.amount
+                    )}
                 </p>
 
                 <p>
                     Gasto:
-                    ${formatMoney(budget.totalSpent)}
+                    ${formatMoney(
+                        budget.totalSpent
+                    )}
                 </p>
 
                 <p>
                     Restante:
-                    ${formatMoney(budget.remaining)}
+                    ${formatMoney(
+                        budget.remaining
+                    )}
                 </p>
 
                 <p>
@@ -90,9 +131,13 @@ async function loadBudgets() {
 
     } catch (error) {
 
-        console.error(error);
+        console.error(
+            "Erro ao carregar orçamentos:",
+            error
+        );
 
     }
+
 }
 
 budgetForm.addEventListener(
@@ -120,8 +165,10 @@ budgetForm.addEventListener(
                 {
                     method: "POST",
                     headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`
+                        "Content-Type":
+                            "application/json",
+                        Authorization:
+                            `Bearer ${token}`
                     },
                     body: JSON.stringify({
                         name,
@@ -157,7 +204,7 @@ expenseForm.addEventListener(
         const budgetId =
             Number(
                 document.getElementById(
-                    "expenseBudgetId"
+                    "expenseBudget"
                 ).value
             );
 
@@ -186,7 +233,9 @@ expenseForm.addEventListener(
                     method: "POST",
                     headers: {
                         "Content-Type":
-                            "application/json"
+                            "application/json",
+                        Authorization:
+                            `Bearer ${token}`
                     },
                     body: JSON.stringify({
                         budgetId,
@@ -224,10 +273,12 @@ async function deleteBudget(id) {
             {
                 method: "DELETE",
                 headers: {
-                    Authorization: `Bearer ${token}`
+                    Authorization:
+                        `Bearer ${token}`
                 }
             }
         );
+
         loadBudgets();
 
     } catch (error) {
@@ -235,14 +286,22 @@ async function deleteBudget(id) {
         console.error(error);
 
     }
-    function logout() {
 
-        localStorage.removeItem("token");
-        localStorage.removeItem("usuario");
+}
 
-        window.location.href =
-            "telaLogin.html";
-    }
+function logout() {
+
+    localStorage.removeItem(
+        "token"
+    );
+
+    localStorage.removeItem(
+        "usuario"
+    );
+
+    window.location.href =
+        "telaLogin.html";
+
 }
 
 loadBudgets();
