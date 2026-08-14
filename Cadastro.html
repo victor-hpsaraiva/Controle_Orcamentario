@@ -1,52 +1,66 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/cadastro.css">
     <title>Document</title>
 </head>
+
 <body>
-    
-        <header>
-    <nav>
-        <ul>
-            <li><a href="#"></a></li>
-            <li><a href="#"></a></li>
-            <li><a href="login.html"></a></li>
-        </ul>
-    </nav>
+
+    <header>
+        <nav>
+
+            <ul>
+                <li><a href="#"></a></li>
+                <li><a href="#"></a></li>
+                <li><a href="login.html"></a></li>
+            </ul>
+
+        </nav>
     </header>
-    
-<main>
+
+    <main>
+
+
         <section>
-    <h1>Cadastro</h1>
-    <p>CADASTRO - Faça login para acessar a área restrita</p>
+            <h1>Cadastro</h1>
+
         </section>
 
-            <div class="cadastro"> 
-                <form>
-                    <label for="Nome">Nome</label>
-                    <input type="text" id="nome" name="nome">
 
-                    <label for="email">Email</label>
-                    <input type="text" id="email" name="email">
 
-                    <label for="senha">Senha</label>
-                    <input type="password" id="senha" placeholder="senha" required>
-                                    
-                    <input type="password" id="confirsenha" placeholder="confirsenha" required>
-                    <input type="submit" id="btncadastrar" value="Cadastrar">
-                       <button onclick="cadastrarUsuario()">Cadastrar</button>
-                </form>
-                <button onclick="cadastrarUsuario()">Cadastrar</button>
-            </div>   
+        <div class="cadastro">
+
+            <form onsubmit="cadastrarUsuario(); return false;">
+
+                <label for="nome">Nome</label>
+                <input type="text" id="nome" name="nome" required>
+
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" placeholder="Senha" required>
+
+                <label for="confirsenha">Confirmar Senha</label>
+                <input type="password" id="confirsenha" placeholder="Confirmar senha" required>
+
+                <input type="submit" id="btncadastrar" value="Cadastrar">
+
+            </form>
+
+
+        </div>
     </main>
 
 
-<script src="js/scriptCadastrar.js"> </script>
+    <script src="js/scriptCadastrar.js"> </script>
 
 
 
 </body>
+
 </html>
