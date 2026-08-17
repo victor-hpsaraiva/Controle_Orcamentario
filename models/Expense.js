@@ -3,63 +3,42 @@ const expenses = [];
 let nextExpenseId = 1;
 
 module.exports = {
+  expenses,
 
-    expenses,
+  create(budgetId, description, category, amount) {
+    const expense = {
+      id: nextExpenseId++,
+      budgetId,
+      description,
+      category,
+      amount,
+      createdAt: new Date().toISOString(),
+    };
 
-    create(
-        budgetId,
-        description,
-        category,
-        amount
-    ){
+    expenses.push(expense);
 
-        const expense = {
+    return expense;
+  },
 
-            id: nextExpenseId++,
-            budgetId,
-            description,
-            category,
-            amount,
-            createdAt: new Date().toISOString()
+  findAll() {
+    return expenses;
+  },
 
-        };
+  findByBudgetId(budgetId) {
+    return expenses.filter((expense) => expense.budgetId === Number(budgetId));
+  },
 
-        expenses.push(expense);
+  findById(id) {
+    return expenses.find((expense) => expense.id === Number(id));
+  },
 
-        return expense;
-    },
+  delete(id) {
+    const index = expenses.findIndex((expense) => expense.id === Number(id));
 
-    findAll() {
-        return expenses;
-    },
+    if (index === -1) return false;
 
-    findByBudgetId(budgetId) {
+    expenses.splice(index, 1);
 
-        return expenses.filter(
-            expense =>
-            expense.budgetId === Number(budgetId)
-        );
-    },
-
-    findById(id){
-
-        return expenses.find(
-            expense =>
-            expense.id === Number(id)
-        );
-    },
-
-    delete(id){
-
-        const index = expenses.findIndex(
-            expense =>
-            expense.id === Number(id)
-        );
-
-        if(index === -1) return false;
-
-        expenses.splice(index,1);
-
-        return true;
-    }
+    return true;
+  },
 };
