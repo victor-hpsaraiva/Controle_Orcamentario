@@ -1,157 +1,155 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Segoe UI", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
 }
 
 body {
-    min-height: 100vh;
-    background: #f5f5f5;
+  min-height: 100vh;
+  background: #f5f5f5;
 }
 
 header {
-    display: none;
+  display: none;
 }
 
 main {
-    min-height: 100vh;
-    display: flex;
+  min-height: 100vh;
+  display: flex;
 }
 
 /* Lado esquerdo */
 
 main::before {
-    content: "";
-    width: 65%;
-    background-color: #6cf75d;
-    background-image: url("../img/SmartSpend.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 600px;
+  content: "";
+  width: 65%;
+  background-color: #6cf75d;
+  background-image: url("../img/SmartSpend.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 600px;
 }
 
 /* Área direita */
 
 .cadastro {
-    width: 35%;
-    background: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 50px;
+  width: 35%;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 50px;
 }
 
 form {
-    width: 100%;
-    max-width: 400px;
+  width: 100%;
+  max-width: 400px;
 }
 
 section {
-    position: absolute;
-    right: 70px;
-    top: 40px;
-    width: 350px;
+  position: absolute;
+  right: 70px;
+  top: 40px;
+  width: 350px;
 }
 
 section h1 {
-    font-size: 42px;
-    color: #111;
-    margin-bottom: 8px;
+  font-size: 42px;
+  color: #111;
+  margin-bottom: 8px;
 }
 
 section p {
-    color: #666;
-    font-size: 14px;
+  color: #666;
+  font-size: 14px;
 }
 
 label {
-    display: block;
-    margin-top: 18px;
-    margin-bottom: 8px;
-    color: #333;
-    font-weight: 600;
+  display: block;
+  margin-top: 18px;
+  margin-bottom: 8px;
+  color: #333;
+  font-weight: 600;
 }
 
 input {
-    width: 100%;
-    height: 50px;
-    border: 1px solid #d4d4d4;
-    border-radius: 10px;
-    padding: 0 15px;
-    font-size: 15px;
-    transition: 0.3s;
+  width: 100%;
+  height: 50px;
+  border: 1px solid #d4d4d4;
+  border-radius: 10px;
+  padding: 0 15px;
+  font-size: 15px;
+  transition: 0.3s;
 }
 
 input:focus {
-    outline: none;
-    border-color: #6CF04F;
-    box-shadow: 0 0 8px rgba(108, 240, 79, 0.35);
+  outline: none;
+  border-color: #6cf04f;
+  box-shadow: 0 0 8px rgba(108, 240, 79, 0.35);
 }
 
 #btncadastrar {
-    margin-top: 25px;
-    border: none;
-    background: #111;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
+  margin-top: 25px;
+  border: none;
+  background: #111;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
 #btncadastrar:hover {
-    background: #6CF04F;
-    color: #111;
+  background: #6cf04f;
+  color: #111;
 }
 
 a {
-    color: #6CF04F;
-    text-decoration: none;
-    font-weight: bold;
+  color: #6cf04f;
+  text-decoration: none;
+  font-weight: bold;
 }
 
 a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 /* Responsivo */
 
 @media (max-width: 1000px) {
+  main {
+    flex-direction: column;
+  }
 
-    main {
-        flex-direction: column;
-    }
+  main::before {
+    width: 100%;
+    height: 250px;
+    background-size: 220px;
+  }
 
-    main::before {
-        width: 100%;
-        height: 250px;
-        background-size: 220px;
-    }
+  .cadastro {
+    width: 100%;
+    padding: 30px;
+  }
 
-    .cadastro {
-        width: 100%;
-        padding: 30px;
-    }
-
-    section {
-        position: static;
-        width: 100%;
-        text-align: center;
-        margin: 30px 0;
-    }
+  section {
+    position: static;
+    width: 100%;
+    text-align: center;
+    margin: 30px 0;
+  }
 }
 
 @media (max-width: 500px) {
+  section h1 {
+    font-size: 32px;
+  }
 
-    section h1 {
-        font-size: 32px;
-    }
+  input {
+    height: 45px;
+  }
 
-    input {
-        height: 45px;
-    }
-
-    #btncadastrar {
-        height: 50px;
-    }
+  #btncadastrar {
+    height: 50px;
+  }
 }

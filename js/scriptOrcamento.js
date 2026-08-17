@@ -1,113 +1,73 @@
 const API_URL = "http://localhost:3000";
 
-const budgetForm =
-    document.getElementById("budgetForm");
+const budgetForm = document.getElementById("budgetForm");
 
-const expenseForm =
-    document.getElementById("expenseForm");
+const expenseForm = document.getElementById("expenseForm");
 
-const budgetList =
-    document.getElementById("budgetList");
+const budgetList = document.getElementById("budgetList");
 
-const token =
-    localStorage.getItem("token");
+const token = localStorage.getItem("token");
 
 if (!token) {
-
-    window.location.href =
-        "telaLogin.html";
-
+  window.location.href = "telaLogin.html";
 }
 
 function formatMoney(value) {
-
-    return Number(value).toLocaleString(
-        "pt-BR",
-        {
-            style: "currency",
-            currency: "BRL"
-        }
-    );
-
+  return Number(value).toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
 }
 
 async function loadBudgets() {
+  try {
+    const response = await fetch(`${API_URL}/budgets`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-    try {
+    const budgets = await response.json();
 
-        const response = await fetch(
-            `${API_URL}/budgets`,
-            {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
-                }
-            }
-        );
+    const expenseBudget = document.getElementById("expenseBudget");
 
-        const budgets =
-            await response.json();
-
-        const expenseBudget =
-            document.getElementById(
-                "expenseBudget"
-            );
-
-        expenseBudget.innerHTML = `
+    expenseBudget.innerHTML = `
             <option value="">
                 Selecione um orçamento
             </option>
         `;
 
-        budgetList.innerHTML = "";
+    budgetList.innerHTML = "";
 
-        budgets.forEach(budget => {
+    budgets.forEach((budget) => {
+      const option = document.createElement("option");
 
-            const option =
-                document.createElement(
-                    "option"
-                );
+      option.value = budget.id;
 
-            option.value =
-                budget.id;
+      option.textContent = `${budget.name} - ${formatMoney(budget.remaining)}`;
 
-            option.textContent =
-                `${budget.name} - ${formatMoney(
-                    budget.remaining
-                )}`;
+      expenseBudget.appendChild(option);
 
-            expenseBudget.appendChild(
-                option
-            );
+      const div = document.createElement("div");
 
-            const div =
-                document.createElement(
-                    "div"
-                );
-
-            div.innerHTML = `
+      div.innerHTML = `
 
                 <h3>${budget.name}</h3>
 
                 <p>
                     Valor:
-                    ${formatMoney(
-                        budget.amount
-                    )}
+                    ${formatMoney(budget.amount)}
                 </p>
 
                 <p>
                     Gasto:
-                    ${formatMoney(
-                        budget.totalSpent
-                    )}
+                    ${formatMoney(budget.totalSpent)}
                 </p>
 
                 <p>
                     Restante:
-                    ${formatMoney(
-                        budget.remaining
-                    )}
+                    ${formatMoney(budget.remaining)}
                 </p>
 
                 <p>
@@ -125,183 +85,104 @@ async function loadBudgets() {
 
             `;
 
-            budgetList.appendChild(div);
-
-        });
-
-    } catch (error) {
-
-        console.error(
-            "Erro ao carregar orçamentos:",
-            error
-        );
-
-    }
-
+      budgetList.appendChild(div);
+    });
+  } catch (error) {
+    console.error("Erro ao carregar orçamentos:", error);
+  }
 }
 
-budgetForm.addEventListener(
-    "submit",
-    async (event) => {
+budgetForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
 
-        event.preventDefault();
+  const name = document.getElementById("budgetName").value;
 
-        const name =
-            document.getElementById(
-                "budgetName"
-            ).value;
+  const amount = Number(document.getElementById("budgetAmount").value);
 
-        const amount =
-            Number(
-                document.getElementById(
-                    "budgetAmount"
-                ).value
-            );
+  try {
+    const response = await fetch(`${API_URL}/budgets`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        name,
+        amount,
+      }),
+    });
 
-        try {
+    const data = await response.json();
 
-            const response = await fetch(
-                `${API_URL}/budgets`,
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type":
-                            "application/json",
-                        Authorization:
-                            `Bearer ${token}`
-                    },
-                    body: JSON.stringify({
-                        name,
-                        amount
-                    })
-                }
-            );
+    console.log(data);
 
-            const data =
-                await response.json();
+    budgetForm.reset();
 
-            console.log(data);
+    loadBudgets();
+  } catch (error) {
+    console.error(error);
+  }
+});
 
-            budgetForm.reset();
+expenseForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
 
-            loadBudgets();
+  const budgetId = Number(document.getElementById("expenseBudget").value);
 
-        } catch (error) {
+  const description = document.getElementById("expenseDescription").value;
 
-            console.error(error);
+  const category = document.getElementById("expenseCategory").value;
 
-        }
+  const amount = Number(document.getElementById("expenseAmount").value);
 
-    }
-);
+  try {
+    const response = await fetch(`${API_URL}/expenses`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        budgetId,
+        description,
+        category,
+        amount,
+      }),
+    });
 
-expenseForm.addEventListener(
-    "submit",
-    async (event) => {
+    const data = await response.json();
 
-        event.preventDefault();
+    console.log(data);
 
-        const budgetId =
-            Number(
-                document.getElementById(
-                    "expenseBudget"
-                ).value
-            );
+    expenseForm.reset();
 
-        const description =
-            document.getElementById(
-                "expenseDescription"
-            ).value;
-
-        const category =
-            document.getElementById(
-                "expenseCategory"
-            ).value;
-
-        const amount =
-            Number(
-                document.getElementById(
-                    "expenseAmount"
-                ).value
-            );
-
-        try {
-
-            const response = await fetch(
-                `${API_URL}/expenses`,
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type":
-                            "application/json",
-                        Authorization:
-                            `Bearer ${token}`
-                    },
-                    body: JSON.stringify({
-                        budgetId,
-                        description,
-                        category,
-                        amount
-                    })
-                }
-            );
-
-            const data =
-                await response.json();
-
-            console.log(data);
-
-            expenseForm.reset();
-
-            loadBudgets();
-
-        } catch (error) {
-
-            console.error(error);
-
-        }
-
-    }
-);
+    loadBudgets();
+  } catch (error) {
+    console.error(error);
+  }
+});
 
 async function deleteBudget(id) {
+  try {
+    await fetch(`${API_URL}/budgets/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-    try {
-
-        await fetch(
-            `${API_URL}/budgets/${id}`,
-            {
-                method: "DELETE",
-                headers: {
-                    Authorization:
-                        `Bearer ${token}`
-                }
-            }
-        );
-
-        loadBudgets();
-
-    } catch (error) {
-
-        console.error(error);
-
-    }
-
+    loadBudgets();
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 function logout() {
+  localStorage.removeItem("token");
 
-    localStorage.removeItem(
-        "token"
-    );
+  localStorage.removeItem("usuario");
 
-    localStorage.removeItem(
-        "usuario"
-    );
-
-    window.location.href =
-        "telaLogin.html";
-
+  window.location.href = "telaLogin.html";
 }
 
 loadBudgets();
