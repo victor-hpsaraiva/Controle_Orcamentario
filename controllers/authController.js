@@ -27,7 +27,7 @@ exports.register = async (req, res) => {
       password: hashedPassword,
     });
 
-     await sendWelcomeEmail(user.name, user.email);
+    await sendWelcomeEmail(user.name, user.email);
 
     return res.status(201).json({
       message: "Usuário criado",
@@ -52,9 +52,15 @@ exports.login = async (req, res) => {
       email,
     });
 
+    if (!user) {
+      return res.status(401).json({
+        error: "Email ou senha inválidos",
+      });
+    }
+
     const passwordMatch = await bcrypt.compare(password, user.password);
 
-    if (!user || passwordMatch) {
+    if (!passwordMatch) {
       return res.status(401).json({
         error: "Email ou senha inválidos",
       });
@@ -74,7 +80,11 @@ exports.login = async (req, res) => {
     return res.json({
       message: "Login realizado",
       token,
-      user,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+      },
     });
   } catch (error) {
     console.error(error);
