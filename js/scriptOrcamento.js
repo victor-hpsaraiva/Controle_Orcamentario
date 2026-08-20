@@ -41,6 +41,21 @@ async function loadBudgets() {
     budgetList.innerHTML = "";
 
     budgets.forEach((budget) => {
+
+      const historico = JSON.parse(localStorage.getItem("historico")) || [];
+ 
+      const despesasDoOrcamento = historico.filter(
+      item => item.budgetId === budget.id
+      );
+ 
+      const historicoHTML = despesasDoOrcamento.map(item => `
+      <div class="historico-item">
+        <p><strong>Descrição:</strong> ${item.description}</p>
+        <p><strong>Categoria:</strong> ${item.category}</p>
+        <p><strong>Valor:</strong> ${formatMoney(item.amount)}</p>
+      </div>
+      `).join("");
+
       const option = document.createElement("option");
 
       option.value = budget.id;
@@ -53,35 +68,30 @@ async function loadBudgets() {
 
       div.innerHTML = `
 
-                <h3>${budget.name}</h3>
-
-                <p>
-                    Valor:
-                    ${formatMoney(budget.amount)}
-                </p>
-
-                <p>
-                    Gasto:
-                    ${formatMoney(budget.totalSpent)}
-                </p>
-
-                <p>
-                    Restante:
-                    ${formatMoney(budget.remaining)}
-                </p>
-
-                <p>
-                    Status:
-                    ${budget.status}
-                </p>
-
-                <button
-                    onclick="deleteBudget(${budget.id})"
-                >
-                    Excluir
-                </button>
-
-                <hr>
+      <link rel="stylesheet" href="js/Orcamento.css" />
+ 
+      <div class="budget-container">
+     
+      <div class="block1">
+ 
+      <h3>${budget.name}</h3>
+ 
+      <p>Valor: ${formatMoney(budget.amount)}</p>
+      <p>Gasto: ${formatMoney(budget.totalSpent)}</p>
+      <p>Resto: ${formatMoney(budget.remaining)}</p>
+      <p>Status: ${budget.status}</p>
+      <button onclick="deleteBudget(${budget.id})">Excluir</button>
+      <button onclick="MyTest()">Refresh</button>
+ 
+      </div>
+      <div class="block2">
+     
+      <h3>Histórico</h3>
+ 
+      ${historicoHTML}
+ 
+      </div>
+      </div>
 
             `;
 
@@ -112,6 +122,7 @@ budgetForm.addEventListener("submit", async (event) => {
       }),
     });
 
+    
     const data = await response.json();
 
     console.log(data);
@@ -153,6 +164,12 @@ expenseForm.addEventListener("submit", async (event) => {
     const data = await response.json();
 
     console.log(data);
+
+    const historico = JSON.parse(localStorage.getItem("historico")) || [];
+ 
+    historico.push(data);
+ 
+    localStorage.setItem("historico", JSON.stringify(historico));
 
     expenseForm.reset();
 
