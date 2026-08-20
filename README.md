@@ -13,16 +13,16 @@ Muitas pessoas possuem dificuldades para visualizar seus gastos e receitas de ma
 
 # Tecnologias Utilizadas
 
-## Front-end
+
 HTML5
 CSS3
-JavaScrip
+JavaScript
 
-## Back-end
+
 Node.js
 Express.js
 
-## Banco de Dados
+gi
 MongoDB
 Mongoose
 
