@@ -1,45 +1,78 @@
 const Budget = require("../models/Budget");
 const Expense = require("../models/Expense");
 
-exports.createExpense = (req, res) => {
-  const { budgetId, description, category, amount } = req.body;
+exports.createExpense = async (req, res) => {
+  try {
+    const { budgetId, description, category, amount } = req.body;
 
-  const budget = Budget.findById(budgetId);
+    const budget = await Budget.findById(budgetId);
 
-  if (!budget) {
-    return res.status(404).json({
-      error: "Orçamento não encontrado",
+    if (!budget) {
+      return res.status(404).json({
+        error: "Orçamento não encontrado",
+      });
+    }
+
+    const expense = await Expense.create({
+      budgetId,
+
+      description,
+
+      category: category || "Outros",
+
+      amount: Number(amount),
+    });
+
+    res.status(201).json(expense);
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      error: "Erro ao criar despesa",
     });
   }
-
-  const expense = Expense.create(
-    Number(budgetId),
-    description,
-    category || "Outros",
-    Number(amount),
-  );
-
-  res.status(201).json(expense);
 };
 
-exports.getExpenses = (req, res) => {
-  if (req.query.budgetId) {
-    return res.json(Expense.findByBudgetId(req.query.budgetId));
-  }
+exports.getExpenses = async (req, res) => {
+  try {
+    if (req.query.budgetId) {
+      const expenses = await Expense.find({
+        budgetId: req.query.budgetId,
+      });
 
-  return res.json(Expense.findAll());
-};
+      return res.json(expenses);
+    }
 
-exports.deleteExpense = (req, res) => {
-  const success = Expense.delete(req.params.id);
+    const expenses = await Expense.find();
 
-  if (!success) {
-    return res.status(404).json({
-      error: "Despesa não encontrada",
+    res.json(expenses);
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      error: "Erro ao listar despesas",
     });
   }
+};
 
-  res.json({
-    message: "Despesa removida",
-  });
+exports.deleteExpense = async (req, res) => {
+  try {
+    const expense = await Expense.findByIdAndDelete(req.params.id);
+
+    if (!expense) {
+      return res.status(404).json({
+        error: "Despesa não encontrada",
+      });
+    }
+
+    res.json({
+      message: "Despesa removida",
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      error: "Erro ao remover despesa",
+    });
+  }
 };
