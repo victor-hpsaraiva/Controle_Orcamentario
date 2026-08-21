@@ -47,8 +47,8 @@ async function loadBudgets() {
     budgetList.innerHTML = "";
 
     budgets.forEach((budget) => {
-      const despesasDoOrcamento = expenses.filter(
-        (item) => Number(item.budgetId) === Number(budget.id),
+      const despesasDoOrcamento = expenses.filter (
+        (item) => String(item.budgetId) === String(budget.id),
       );
 
       const historicoHTML = despesasDoOrcamento
@@ -112,7 +112,7 @@ async function loadBudgets() {
                         <div class="actions-budget">
 
                             <button
-                                onclick="deleteBudget(${budget.id})"
+                                onclick="deleteBudget('${budget.id}')"
                             >
                                 Excluir
                             </button>
@@ -131,7 +131,7 @@ async function loadBudgets() {
 
                             <summary>
                                 Ver Histórico
-                            </summary>
+                             </summary>
 
                             <table>
 
@@ -199,7 +199,7 @@ budgetForm.addEventListener("submit", async (event) => {
 expenseForm.addEventListener("submit", async (event) => {
   event.preventDefault();
 
-  const budgetId = Number(document.getElementById("expenseBudget").value);
+  const budgetId = document.getElementById("expenseBudget").value;
 
   const description = document.getElementById("expenseDescription").value;
 

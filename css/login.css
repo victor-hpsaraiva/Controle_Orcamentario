@@ -1,80 +1,104 @@
-/* Tela inteira centralizada */
+/* Tela inteira */
 body {
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  background: linear-gradient(135deg, #1db149, #2c2b2b);
-  font-family: "Segoe UI", Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+ 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ 
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #090f68, #1916ad);
 }
-
-/* Card de login */
-section {
-  background: white;
-  padding: 30px;
-  border-radius: 15px;
-  width: 300px;
-  text-align: center;
-
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+ 
+/* Card maior */
+.card {
+    background: white;
+    padding: 45px;
+    border-radius: 18px;
+    width: 420px;
+ 
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    text-align: center;
 }
-
+ 
 /* Título */
-section h2 {
-  margin-bottom: 20px;
-  color: #333;
+.card h2 {
+    margin-bottom: 30px;
+    font-size: 28px;
 }
-
-/* Form */
+ 
+/* Formulário */
 #form {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
-
+ 
 /* Labels */
 #form label {
-  margin-top: 10px;
-  font-weight: 600;
-  text-align: left;
+    margin-top: 15px;
+    font-weight: 600;
+    text-align: left;
+    font-size: 16px;
 }
-
+ 
 /* Inputs */
 #form input {
-  padding: 12px;
-  margin-top: 5px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  transition: 0.3s;
+    padding: 15px;
+    margin-top: 7px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    transition: 0.3s;
 }
-
-/* Efeito foco */
+ 
+/* Focus bonito */
 #form input:focus {
-  border-color: #6a11cb;
-  box-shadow: 0 0 5px rgba(106, 17, 203, 0.5);
-  outline: none;
+    border-color: #4facfe;
+    box-shadow: 0 0 5px rgba(79, 172, 254, 0.6);
+    outline: none;
 }
-
+ 
 /* Botão */
 #form button {
-  margin-top: 20px;
-  padding: 12px;
-  border: none;
-  border-radius: 8px;
-
-  background: linear-gradient(135deg, #6a11cb, #2575fc);
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-
-  transition: 0.3s;
+    margin-top: 25px;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+ 
+    background: linear-gradient(135deg, #0072ff, #00c6ff);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+ 
+    transition: 0.3s;
 }
-
-/* Hover botão */
+ 
+/* Hover */
 #form button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+ 
+/* Links */
+.links {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+ 
+/* Estilo links */
+.links a {
+    font-size: 15px;
+    color: #0072ff;
+    text-decoration: none;
+    transition: 0.3s;
+}
+ 
+/* Hover links */
+.links a:hover {
+    text-decoration: underline;
+    color: #0056cc;
 }
