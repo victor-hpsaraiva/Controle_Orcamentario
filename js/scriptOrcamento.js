@@ -1,9 +1,7 @@
 const API_URL = "http://localhost:3000";
 
 const budgetForm = document.getElementById("budgetForm");
-
 const expenseForm = document.getElementById("expenseForm");
-
 const budgetList = document.getElementById("budgetList");
 
 const token = localStorage.getItem("token");
@@ -30,6 +28,14 @@ async function loadBudgets() {
 
     const budgets = await response.json();
 
+    const expensesResponse = await fetch(`${API_URL}/expenses`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const expenses = await expensesResponse.json();
+
     const expenseBudget = document.getElementById("expenseBudget");
 
     expenseBudget.innerHTML = `
@@ -41,26 +47,33 @@ async function loadBudgets() {
     budgetList.innerHTML = "";
 
     budgets.forEach((budget) => {
-
-      const historico = JSON.parse(localStorage.getItem("historico")) || [];
- 
-      const despesasDoOrcamento = historico.filter(
-      item => item.budgetId === budget.id
+      const despesasDoOrcamento = expenses.filter (
+        (item) => String(item.budgetId) === String(budget.id),
       );
- 
-      const historicoHTML = despesasDoOrcamento.map(item => `
-      <div class="historico-item">
-        <p><strong>Descrição:</strong> ${item.description}</p>
-        <p><strong>Categoria:</strong> ${item.category}</p>
-        <p><strong>Valor:</strong> ${formatMoney(item.amount)}</p>
-      </div>
-      `).join("");
+
+      const historicoHTML = despesasDoOrcamento
+        .map(
+          (item) => `
+                    
+                    <tr>
+                        <td>${item.description}</td>
+                        <td>${item.category}</td>
+                        <td>${formatMoney(item.amount)}</td>
+                    </tr>
+
+                `,
+        )
+        .join("");
 
       const option = document.createElement("option");
 
       option.value = budget.id;
 
-      option.textContent = `${budget.name} - ${formatMoney(budget.remaining)}`;
+      option.textContent = `
+                ${budget.name}
+                -
+                ${formatMoney(budget.remaining)}
+            `;
 
       expenseBudget.appendChild(option);
 
@@ -68,6 +81,7 @@ async function loadBudgets() {
 
       div.innerHTML = `
 
+<<<<<<< HEAD
       <link rel="stylesheet" href="js/Orcamento.css" />
  
       <div class="budget-container">
@@ -92,6 +106,85 @@ async function loadBudgets() {
  
       </div>
       </div>
+=======
+                <div class="budget-container">
+
+                    <div class="block1">
+
+                        <h3>
+                            ${budget.name}
+                        </h3>
+
+                        <p>
+                            Valor:
+                            ${formatMoney(budget.amount)}
+                        </p>
+
+                        <p>
+                            Gasto:
+                            ${formatMoney(budget.totalSpent)}
+                        </p>
+
+                        <p>
+                            Resto:
+                            ${formatMoney(budget.remaining)}
+                        </p>
+
+                        <p>
+                            Status:
+                            ${budget.status}
+                        </p>
+
+                        <div class="actions-budget">
+
+                            <button
+                                onclick="deleteBudget('${budget.id}')"
+                            >
+                                Excluir
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="block2">
+
+                        <h3>
+                            Histórico
+                        </h3>
+
+                        <details>
+
+                            <summary>
+                                Ver Histórico
+                             </summary>
+
+                            <table>
+
+                                <thead>
+
+                                    <tr>
+                                        <th>Descrição</th>
+                                        <th>Categoria</th>
+                                        <th>Valor</th>
+                                    </tr>
+
+                                </thead>
+
+                                <tbody>
+
+                                    ${historicoHTML}
+
+                                </tbody>
+
+                            </table>
+
+                        </details>
+
+                    </div>
+
+                </div>
+>>>>>>> 3c593b75c2703b00816ea1e4fab1dd48f85fdcfa
 
             `;
 
@@ -110,7 +203,7 @@ budgetForm.addEventListener("submit", async (event) => {
   const amount = Number(document.getElementById("budgetAmount").value);
 
   try {
-    const response = await fetch(`${API_URL}/budgets`, {
+    await fetch(`${API_URL}/budgets`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -121,11 +214,6 @@ budgetForm.addEventListener("submit", async (event) => {
         amount,
       }),
     });
-
-    
-    const data = await response.json();
-
-    console.log(data);
 
     budgetForm.reset();
 
@@ -138,7 +226,7 @@ budgetForm.addEventListener("submit", async (event) => {
 expenseForm.addEventListener("submit", async (event) => {
   event.preventDefault();
 
-  const budgetId = Number(document.getElementById("expenseBudget").value);
+  const budgetId = document.getElementById("expenseBudget").value;
 
   const description = document.getElementById("expenseDescription").value;
 
@@ -147,7 +235,7 @@ expenseForm.addEventListener("submit", async (event) => {
   const amount = Number(document.getElementById("expenseAmount").value);
 
   try {
-    const response = await fetch(`${API_URL}/expenses`, {
+    await fetch(`${API_URL}/expenses`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -160,16 +248,6 @@ expenseForm.addEventListener("submit", async (event) => {
         amount,
       }),
     });
-
-    const data = await response.json();
-
-    console.log(data);
-
-    const historico = JSON.parse(localStorage.getItem("historico")) || [];
- 
-    historico.push(data);
- 
-    localStorage.setItem("historico", JSON.stringify(historico));
 
     expenseForm.reset();
 

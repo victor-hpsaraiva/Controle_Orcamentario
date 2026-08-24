@@ -8,28 +8,28 @@
     <title>SmartSpend</title>
 </head>
 <body>
-    
-     <main>
-        <section>
-            <div id="form">
-                <label>Email:</label>
-                <input type="email" id="emailLogin">
+ <main>
+    <section class="card">
+        <h2>Login</h2>
  
-                <label>Senha:</label>
-                <input type="password" id="senhaLogin">
+        <div id="form">
+            <label>Email:</label>
+            <input type="email" id="emailLogin" placeholder="Digite seu email">
  
-             
-                   <button onclick="login()">Login</button>
-
-                   <div"><label for="cadastro">Não possui conta? <a href="Cadastro.html">Cadastre-se Aqui</a></label></div>
+            <label>Senha:</label>
+            <input type="password" id="senhaLogin" placeholder="Digite sua senha">
+ 
+            <button onclick="login()">Entrar</button>
+ 
+            <!-- Links extras -->
+            <div class="links">
+                <a href="Cadastro.html">Cadastrar-se</a>
+                <a href="home.html">Voltar</a>
             </div>
-
-        </section>
-    </main>
+        </div>
+    </section>
+</main>
  
     <script src="js/scriptLogin.js"></script>
  
-
-
-</body>
 </html>

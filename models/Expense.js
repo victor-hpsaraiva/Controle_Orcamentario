@@ -1,44 +1,31 @@
-const expenses = [];
+const mongoose = require("mongoose");
 
-let nextExpenseId = 1;
-
-module.exports = {
-  expenses,
-
-  create(budgetId, description, category, amount) {
-    const expense = {
-      id: nextExpenseId++,
-      budgetId,
-      description,
-      category,
-      amount,
-      createdAt: new Date().toISOString(),
-    };
-
-    expenses.push(expense);
-
-    return expense;
+const ExpenseSchema = new mongoose.Schema({
+  budgetId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Budget",
+    required: true,
   },
 
-  findAll() {
-    return expenses;
+  description: {
+    type: String,
+    required: true,
   },
 
-  findByBudgetId(budgetId) {
-    return expenses.filter((expense) => expense.budgetId === Number(budgetId));
+  category: {
+    type: String,
+    default: "Outros",
   },
 
-  findById(id) {
-    return expenses.find((expense) => expense.id === Number(id));
+  amount: {
+    type: Number,
+    required: true,
   },
 
-  delete(id) {
-    const index = expenses.findIndex((expense) => expense.id === Number(id));
-
-    if (index === -1) return false;
-
-    expenses.splice(index, 1);
-
-    return true;
+  createdAt: {
+    type: Date,
+    default: Date.now,
   },
-};
+});
+
+module.exports = mongoose.model("Expense", ExpenseSchema);
