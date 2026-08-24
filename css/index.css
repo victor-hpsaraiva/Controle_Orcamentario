@@ -1,3 +1,7 @@
+/* =========================================================
+   SMARTSPEND — CSS PRINCIPAL
+   ========================================================= */
+
 /* ================================
    RESET
 ================================ */
@@ -7,12 +11,17 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: "Segoe UI", Arial, sans-serif;
     background: #f4f7fb;
     color: #1e293b;
     min-height: 100vh;
 }
+
 
 /* ================================
    LAYOUT PRINCIPAL
@@ -22,25 +31,38 @@ body {
     min-height: 100vh;
 }
 
+
 /* ================================
    SIDEBAR
 ================================ */
 .sidebar {
     width: 250px;
-    background: linear-gradient(180deg, #0f172a, #172554);
+
+    background: linear-gradient(
+        180deg,
+        #0f172a,
+        #172554
+    );
+
     color: white;
+
     padding: 30px 20px;
+
     box-shadow: 4px 0 15px rgba(15, 23, 42, 0.12);
+
     position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
+
+    z-index: 100;
 }
 
 .sidebar h2 {
     font-size: 25px;
     margin-bottom: 40px;
     padding-left: 10px;
+
     letter-spacing: 0.5px;
 }
 
@@ -52,11 +74,17 @@ body {
 
 .sidebar nav a {
     display: block;
+
     color: #cbd5e1;
+
     text-decoration: none;
+
     padding: 13px 15px;
+
     border-radius: 10px;
+
     transition: 0.3s;
+
     font-size: 15px;
 }
 
@@ -65,14 +93,25 @@ body {
     color: white;
 }
 
+.sidebar nav a.active {
+    background: rgba(37, 99, 235, 0.9);
+    color: white;
+}
+
+
 /* ================================
    CONTEÚDO
 ================================ */
 .content {
     margin-left: 250px;
+
     width: calc(100% - 250px);
+
     padding: 35px 45px;
+
+    max-width: 1600px;
 }
+
 
 /* ================================
    HEADER
@@ -83,48 +122,72 @@ header {
 
 header h1 {
     font-size: 32px;
+
     color: #0f172a;
+
     margin-bottom: 7px;
+
+    font-weight: 700;
 }
 
 header p {
     color: #64748b;
+
     font-size: 15px;
 }
+
 
 /* ================================
    CARDS DE RESUMO
 ================================ */
 .summary {
     display: grid;
+
     grid-template-columns: repeat(3, 1fr);
+
     gap: 20px;
+
     margin-bottom: 25px;
 }
 
 .card {
     background: white;
+
     border-radius: 16px;
+
     padding: 24px;
-    box-shadow: 0 5px 20px rgba(15, 23, 42, 0.07);
+
+    box-shadow:
+        0 5px 20px rgba(15, 23, 42, 0.07);
+
     border: 1px solid #e2e8f0;
+
     position: relative;
+
     overflow: hidden;
+
     transition: 0.3s;
 }
 
 .card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.1);
+
+    box-shadow:
+        0 10px 25px rgba(15, 23, 42, 0.1);
 }
 
+/* Barra lateral */
 .card::before {
     content: "";
+
     position: absolute;
+
     left: 0;
     top: 0;
+
     width: 5px;
     height: 100%;
+
     background: #2563eb;
 }
 
@@ -138,51 +201,81 @@ header p {
 
 .card h3 {
     color: #64748b;
+
     font-size: 14px;
+
     font-weight: 600;
+
     margin-bottom: 12px;
 }
 
 .card p {
     font-size: 27px;
+
     font-weight: 700;
+
     color: #0f172a;
 }
 
+
 /* ================================
-   MENSAGEM
+   MENSAGENS
 ================================ */
 #message {
-    padding: 0;
+    min-height: 20px;
+
     margin-bottom: 20px;
+
     font-size: 14px;
+
     font-weight: 600;
+
     color: #2563eb;
 }
+
+#message.success {
+    color: #16a34a;
+}
+
+#message.error {
+    color: #dc2626;
+}
+
 
 /* ================================
    FORMULÁRIOS
 ================================ */
 .forms {
     display: grid;
+
     grid-template-columns: 1fr 1fr;
+
     gap: 25px;
+
     margin-bottom: 35px;
 }
 
 form {
     background: white;
+
     padding: 27px;
+
     border-radius: 16px;
+
     border: 1px solid #e2e8f0;
-    box-shadow: 0 5px 20px rgba(15, 23, 42, 0.06);
+
+    box-shadow:
+        0 5px 20px rgba(15, 23, 42, 0.06);
 }
 
 form h2 {
     font-size: 20px;
+
     color: #0f172a;
+
     margin-bottom: 22px;
 }
+
 
 /* ================================
    INPUTS
@@ -190,110 +283,306 @@ form h2 {
 input,
 select {
     width: 100%;
+
     padding: 13px 14px;
+
     margin-bottom: 14px;
+
     border: 1px solid #cbd5e1;
+
     border-radius: 9px;
+
     background: #f8fafc;
+
     color: #1e293b;
+
     font-size: 14px;
+
+    font-family: inherit;
+
     outline: none;
+
     transition: 0.3s;
+}
+
+input:hover,
+select:hover {
+    border-color: #94a3b8;
 }
 
 input:focus,
 select:focus {
     border-color: #2563eb;
+
     background: white;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
 input::placeholder {
     color: #94a3b8;
 }
 
+select {
+    cursor: pointer;
+}
+
+
 /* ================================
    BOTÕES
 ================================ */
 button {
     width: 100%;
+
     border: none;
+
     padding: 13px;
+
     border-radius: 9px;
-    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+
+    background: linear-gradient(
+        135deg,
+        #2563eb,
+        #1d4ed8
+    );
+
     color: white;
+
     font-size: 14px;
+
     font-weight: 700;
+
+    font-family: inherit;
+
     cursor: pointer;
+
     transition: 0.3s;
-    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
+
+    box-shadow:
+        0 4px 10px rgba(37, 99, 235, 0.25);
 }
 
 button:hover {
-    background: linear-gradient(135deg, #1d4ed8, #1e40af);
+    background: linear-gradient(
+        135deg,
+        #1d4ed8,
+        #1e40af
+    );
+
     transform: translateY(-1px);
-    box-shadow: 0 6px 15px rgba(37, 99, 235, 0.3);
+
+    box-shadow:
+        0 6px 15px rgba(37, 99, 235, 0.3);
 }
 
 button:active {
     transform: translateY(0);
 }
 
+
 /* ================================
-   LISTA DE ORÇAMENTOS
+   ÁREA DE ORÇAMENTOS
 ================================ */
 .content > section:last-child {
     background: white;
+
     padding: 28px;
+
     border-radius: 16px;
+
     border: 1px solid #e2e8f0;
-    box-shadow: 0 5px 20px rgba(15, 23, 42, 0.06);
+
+    box-shadow:
+        0 5px 20px rgba(15, 23, 42, 0.06);
 }
 
 .content > section:last-child h2 {
     font-size: 21px;
+
     margin-bottom: 20px;
+
     color: #0f172a;
 }
 
+
 /* ================================
-   ITENS GERADOS PELO JAVASCRIPT
+   LISTA DE ORÇAMENTOS
 ================================ */
 #budgetList {
     display: grid;
-    gap: 12px;
+
+    grid-template-columns: 1fr;
+
+    gap: 14px;
 }
 
-/*
-   Estas regras deixam os elementos
-   criados pelo JavaScript mais bonitos.
-*/
+
+/* ================================
+   ORÇAMENTO INDIVIDUAL
+================================ */
 #budgetList > div {
     background: #f8fafc;
+
     border: 1px solid #e2e8f0;
+
     border-radius: 12px;
-    padding: 18px;
+
+    padding: 20px;
+
     transition: 0.3s;
 }
 
 #budgetList > div:hover {
     background: #eff6ff;
+
     border-color: #bfdbfe;
+
+    transform: translateY(-2px);
 }
 
+
 /* ================================
-   RESPONSIVIDADE
+   TEXTOS DOS ORÇAMENTOS
 ================================ */
-@media (max-width: 900px) {
+#budgetList h3 {
+    color: #0f172a;
+
+    font-size: 17px;
+
+    margin-bottom: 8px;
+}
+
+#budgetList p {
+    color: #64748b;
+
+    font-size: 14px;
+
+    margin-bottom: 5px;
+}
+
+
+/* ================================
+   VALORES
+================================ */
+#budgetList strong {
+    color: #0f172a;
+
+    font-weight: 700;
+}
+
+
+/* ================================
+   BARRA DE PROGRESSO
+================================ */
+.progress {
+    width: 100%;
+
+    height: 8px;
+
+    background: #e2e8f0;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    margin: 15px 0;
+}
+
+.progress-bar {
+    height: 100%;
+
+    background: linear-gradient(
+        90deg,
+        #2563eb,
+        #60a5fa
+    );
+
+    border-radius: 20px;
+
+    transition: width 0.4s ease;
+}
+
+
+/* ================================
+   STATUS
+================================ */
+.status {
+    display: inline-block;
+
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+.status.success {
+    color: #166534;
+
+    background: #dcfce7;
+}
+
+.status.warning {
+    color: #92400e;
+
+    background: #fef3c7;
+}
+
+.status.danger {
+    color: #991b1b;
+
+    background: #fee2e2;
+}
+
+
+/* ================================
+   BOTÕES DOS ORÇAMENTOS
+================================ */
+#budgetList button {
+    width: auto;
+
+    padding: 8px 12px;
+
+    margin-top: 10px;
+
+    font-size: 12px;
+}
+
+#budgetList button.delete,
+#budgetList button.excluir {
+    background: #fee2e2;
+
+    color: #b91c1c;
+
+    box-shadow: none;
+}
+
+#budgetList button.delete:hover,
+#budgetList button.excluir:hover {
+    background: #fecaca;
+
+    color: #991b1b;
+}
+
+
+/* ================================
+   RESPONSIVIDADE — TABLET
+================================ */
+@media (max-width: 1000px) {
 
     .sidebar {
-        width: 200px;
+        width: 210px;
     }
 
     .content {
-        margin-left: 200px;
-        width: calc(100% - 200px);
-        padding: 25px;
+        margin-left: 210px;
+
+        width: calc(100% - 210px);
+
+        padding: 30px;
     }
 
     .summary {
@@ -305,6 +594,10 @@ button:active {
     }
 }
 
+
+/* ================================
+   RESPONSIVIDADE — CELULAR
+================================ */
 @media (max-width: 650px) {
 
     .container {
@@ -313,8 +606,11 @@ button:active {
 
     .sidebar {
         position: relative;
+
         width: 100%;
+
         height: auto;
+
         padding: 20px;
     }
 
@@ -324,11 +620,19 @@ button:active {
 
     .sidebar nav {
         flex-direction: row;
+
+        flex-wrap: wrap;
+    }
+
+    .sidebar nav a {
+        padding: 10px 13px;
     }
 
     .content {
         margin-left: 0;
+
         width: 100%;
+
         padding: 20px;
     }
 
@@ -336,8 +640,54 @@ button:active {
         font-size: 25px;
     }
 
+    header p {
+        line-height: 1.5;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
     .card p {
         font-size: 23px;
     }
+
+    form {
+        padding: 22px;
+    }
+
+    .content > section:last-child {
+        padding: 20px;
+    }
 }
 
+
+/* ================================
+   CELULARES PEQUENOS
+================================ */
+@media (max-width: 420px) {
+
+    .content {
+        padding: 15px;
+    }
+
+    header h1 {
+        font-size: 23px;
+    }
+
+    .summary {
+        gap: 12px;
+    }
+
+    .forms {
+        gap: 15px;
+    }
+
+    form {
+        padding: 18px;
+    }
+
+    .sidebar {
+        padding: 15px;
+    }
+}

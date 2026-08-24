@@ -81,7 +81,7 @@ async function loadBudgets() {
       <p>Resto: ${formatMoney(budget.remaining)}</p>
       <p>Status: ${budget.status}</p>
       <button onclick="deleteBudget(${budget.id})">Excluir</button>
-      <button onclick="MyTest()">Refresh</button>
+    
  
       </div>
       <div class="block2">
