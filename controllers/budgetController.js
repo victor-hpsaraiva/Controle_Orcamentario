@@ -4,9 +4,11 @@ const Expense = require("../models/Expense");
 const ALERT_PERCENTAGE = 10;
 
 async function calculateBudgetStatus(budget) {
-  const budgetExpenses = await Expense.find({
+ const budgetExpenses = await Expense.find({
     budgetId: budget._id,
-  });
+    userId: budget.userId
+});
+
 
   const totalSpent = budgetExpenses.reduce((sum, item) => sum + item.amount, 0);
 
@@ -84,8 +86,12 @@ exports.getBudgets = async (req, res) => {
 };
 
 exports.getBudget = async (req, res) => {
+  
   try {
-    const budget = await Budget.findById(req.params.id);
+    const budget = await Budget.findOne({
+    _id: req.params.id,
+    userId: req.user.id
+});
 
     if (!budget) {
       return res.status(404).json({
@@ -101,11 +107,25 @@ exports.getBudget = async (req, res) => {
       error: "Erro ao buscar orçamento",
     });
   }
+  console.log("USER:", req.user);
+
+console.log(
+    "USER ID:",
+    req.user.id
+);
+  const budgets = await Budget.find({
+    userId: req.user.id
+});
+
+console.log(budgets);
 };
 
 exports.deleteBudget = async (req, res) => {
   try {
-    const budget = await Budget.findByIdAndDelete(req.params.id);
+    const budget = await Budget.findOneAndDelete({
+    _id: req.params.id,
+    userId: req.user.id
+});
 
     if (!budget) {
       return res.status(404).json({
@@ -128,3 +148,4 @@ exports.deleteBudget = async (req, res) => {
     });
   }
 };
+
