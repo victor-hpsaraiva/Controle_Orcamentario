@@ -18,6 +18,8 @@ function formatMoney(value) {
 }
 
 async function loadBudgets() {
+
+  console.log("Carregando orçamentos...");
   try {
     const response = await fetch(`${API_URL}/budgets`, {
       headers: {
@@ -247,3 +249,19 @@ async function deleteBudget(id) {
     }
 
 }
+
+   window.addEventListener("DOMContentLoaded", () => {
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+
+        window.location.href =
+            "telaLogin.html";
+
+        return;
+    }
+
+    loadBudgets();
+
+});
