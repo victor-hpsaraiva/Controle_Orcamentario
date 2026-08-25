@@ -81,32 +81,7 @@ async function loadBudgets() {
 
       div.innerHTML = `
 
-<<<<<<< HEAD
-      <link rel="stylesheet" href="js/Orcamento.css" />
- 
-      <div class="budget-container">
-     
-      <div class="block1">
- 
-      <h3>${budget.name}</h3>
- 
-      <p>Valor: ${formatMoney(budget.amount)}</p>
-      <p>Gasto: ${formatMoney(budget.totalSpent)}</p>
-      <p>Resto: ${formatMoney(budget.remaining)}</p>
-      <p>Status: ${budget.status}</p>
-      <button onclick="deleteBudget(${budget.id})">Excluir</button>
-    
- 
-      </div>
-      <div class="block2">
-     
-      <h3>Histórico</h3>
- 
-      ${historicoHTML}
- 
-      </div>
-      </div>
-=======
+
                 <div class="budget-container">
 
                     <div class="block1">
@@ -184,7 +159,7 @@ async function loadBudgets() {
                     </div>
 
                 </div>
->>>>>>> 3c593b75c2703b00816ea1e4fab1dd48f85fdcfa
+
 
             `;
 
