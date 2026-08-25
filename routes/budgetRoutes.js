@@ -1,15 +1,33 @@
 const express = require("express");
+const authMiddleware = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
-const budgetController = require("../controllers/budgetController");
+const budgetController =
+    require("../controllers/budgetController");
 
-router.post("/", budgetController.createBudget);
+router.post(
+    "/",
+    authMiddleware,
+    budgetController.createBudget
+);
 
-router.get("/", budgetController.getBudgets);
+router.get(
+    "/",
+    authMiddleware,
+    budgetController.getBudgets
+);
 
-router.get("/:id", budgetController.getBudget);
+router.get(
+    "/:id",
+    authMiddleware,
+    budgetController.getBudget
+);
 
-router.delete("/:id", budgetController.deleteBudget);
+router.delete(
+    "/:id",
+    authMiddleware,
+    budgetController.deleteBudget
+);
 
 module.exports = router;

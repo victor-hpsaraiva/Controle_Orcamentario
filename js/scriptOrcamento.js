@@ -79,112 +79,67 @@ async function loadBudgets() {
 
       const div = document.createElement("div");
 
-      div.innerHTML = `
+div.innerHTML = `
 
-<<<<<<< HEAD
-      <link rel="stylesheet" href="js/Orcamento.css" />
- 
-      <div class="budget-container">
-     
-      <div class="block1">
- 
-      <h3>${budget.name}</h3>
- 
-      <p>Valor: ${formatMoney(budget.amount)}</p>
-      <p>Gasto: ${formatMoney(budget.totalSpent)}</p>
-      <p>Resto: ${formatMoney(budget.remaining)}</p>
-      <p>Status: ${budget.status}</p>
-      <button onclick="deleteBudget(${budget.id})">Excluir</button>
-    
- 
-      </div>
-      <div class="block2">
-     
-      <h3>Histórico</h3>
- 
-      ${historicoHTML}
- 
-      </div>
-      </div>
-=======
-                <div class="budget-container">
+<div class="budget-container">
 
-                    <div class="block1">
+    <div class="block1">
 
-                        <h3>
-                            ${budget.name}
-                        </h3>
+        <h3>${budget.name}</h3>
 
-                        <p>
-                            Valor:
-                            ${formatMoney(budget.amount)}
-                        </p>
+        <p>Valor: ${formatMoney(budget.amount)}</p>
 
-                        <p>
-                            Gasto:
-                            ${formatMoney(budget.totalSpent)}
-                        </p>
+        <p>Gasto: ${formatMoney(budget.totalSpent)}</p>
 
-                        <p>
-                            Resto:
-                            ${formatMoney(budget.remaining)}
-                        </p>
+        <p>Resto: ${formatMoney(budget.remaining)}</p>
 
-                        <p>
-                            Status:
-                            ${budget.status}
-                        </p>
+        <p>Status: ${budget.status}</p>
 
-                        <div class="actions-budget">
+        <div class="actions-budget">
 
-                            <button
-                                onclick="deleteBudget('${budget.id}')"
-                            >
-                                Excluir
-                            </button>
+            <button
+                onclick="deleteBudget('${budget.id}')"
+            >
+                Excluir
+            </button>
 
-                        </div>
+        </div>
 
-                    </div>
+    </div>
 
-                    <div class="block2">
+    <div class="block2">
 
-                        <h3>
-                            Histórico
-                        </h3>
+        <h3>Histórico</h3>
 
-                        <details>
+        <details>
 
-                            <summary>
-                                Ver Histórico
-                             </summary>
+            <summary>Ver Histórico</summary>
 
-                            <table>
+            <table>
 
-                                <thead>
+                <thead>
+                    <tr>
+                        <th>Descrição</th>
+                        <th>Categoria</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
 
-                                    <tr>
-                                        <th>Descrição</th>
-                                        <th>Categoria</th>
-                                        <th>Valor</th>
-                                    </tr>
+                <tbody>
 
-                                </thead>
+                    ${historicoHTML}
 
-                                <tbody>
+                </tbody>
 
-                                    ${historicoHTML}
+            </table>
 
-                                </tbody>
+        </details>
 
-                            </table>
+    </div>
 
-                        </details>
+</div>
 
-                    </div>
 
-                </div>
->>>>>>> 3c593b75c2703b00816ea1e4fab1dd48f85fdcfa
 
             `;
 
@@ -226,7 +181,7 @@ budgetForm.addEventListener("submit", async (event) => {
 expenseForm.addEventListener("submit", async (event) => {
   event.preventDefault();
 
-  const budgetId = document.getElementById("expenseBudget").value;
+const budgetId =document.getElementById("expenseBudget").value;
 
   const description = document.getElementById("expenseDescription").value;
 
@@ -258,26 +213,38 @@ expenseForm.addEventListener("submit", async (event) => {
 });
 
 async function deleteBudget(id) {
-  try {
-    await fetch(`${API_URL}/budgets/${id}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
 
-    loadBudgets();
-  } catch (error) {
-    console.error(error);
-  }
+    console.log("Excluindo orçamento:", id);
+
+    try {
+
+        const response = await fetch(
+            `${API_URL}/budgets/${id}`,
+            {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+
+        const data = await response.json();
+
+        console.log(data);
+
+        if (!response.ok) {
+            alert(data.error || "Erro ao excluir orçamento.");
+            return;
+        }
+
+        loadBudgets();
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("Erro ao excluir orçamento.");
+
+    }
+
 }
-
-function logout() {
-  localStorage.removeItem("token");
-
-  localStorage.removeItem("usuario");
-
-  window.location.href = "telaLogin.html";
-}
-
-loadBudgets();

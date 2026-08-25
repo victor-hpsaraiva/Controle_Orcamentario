@@ -44,12 +44,15 @@ exports.createBudget = async (req, res) => {
       });
     }
 
-    const budget = await Budget.create({
-      name,
+   const budget = await Budget.create({
 
-      amount: Number(amount),
-    });
+    userId: req.user.id,
 
+    name,
+
+    amount: Number(amount)
+
+});
     res.status(201).json(await calculateBudgetStatus(budget));
   } catch (error) {
     console.error(error);
@@ -62,12 +65,16 @@ exports.createBudget = async (req, res) => {
 
 exports.getBudgets = async (req, res) => {
   try {
-    const budgets = await Budget.find();
+    const budgets = await Budget.find({
+    userId: req.user.id
+});
 
     const result = await Promise.all(budgets.map(calculateBudgetStatus));
 
     res.json(result);
-  } catch (error) {
+  } 
+  
+  catch (error) {
     console.error(error);
 
     res.status(500).json({

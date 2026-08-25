@@ -13,15 +13,19 @@ exports.createExpense = async (req, res) => {
       });
     }
 
-    const expense = await Expense.create({
-      budgetId,
+  const expense = await Expense.create({
 
-      description,
+    userId: req.user.id,
 
-      category: category || "Outros",
+    budgetId,
 
-      amount: Number(amount),
-    });
+    description,
+
+    category,
+
+    amount
+
+});
 
     res.status(201).json(expense);
   } catch (error) {
@@ -43,7 +47,9 @@ exports.getExpenses = async (req, res) => {
       return res.json(expenses);
     }
 
-    const expenses = await Expense.find();
+  const expenses = await Expense.find({
+    userId: req.user.id
+});
 
     res.json(expenses);
   } catch (error) {
