@@ -3,38 +3,38 @@ body {
     margin: 0;
     padding: 0;
     height: 100vh;
- 
+
     display: flex;
     justify-content: center;
     align-items: center;
- 
+
     font-family: 'Segoe UI', Arial, sans-serif;
-    background: linear-gradient(135deg, #090f68, #1916ad);
+    background: linear-gradient(135deg, #6cf75d, #07833b);
 }
- 
+
 /* Card maior */
 .card {
     background: white;
     padding: 45px;
     border-radius: 18px;
     width: 420px;
- 
+
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
     text-align: center;
 }
- 
+
 /* Título */
 .card h2 {
     margin-bottom: 30px;
     font-size: 28px;
 }
- 
+
 /* Formulário */
 #form {
     display: flex;
     flex-direction: column;
 }
- 
+
 /* Labels */
 #form label {
     margin-top: 15px;
@@ -42,7 +42,7 @@ body {
     text-align: left;
     font-size: 16px;
 }
- 
+
 /* Inputs */
 #form input {
     padding: 15px;
@@ -52,43 +52,43 @@ body {
     font-size: 16px;
     transition: 0.3s;
 }
- 
+
 /* Focus bonito */
 #form input:focus {
     border-color: #4facfe;
     box-shadow: 0 0 5px rgba(79, 172, 254, 0.6);
     outline: none;
 }
- 
+
 /* Botão */
 #form button {
     margin-top: 25px;
     padding: 15px;
     border: none;
     border-radius: 8px;
- 
-    background: linear-gradient(135deg, #0072ff, #00c6ff);
+
+    background: linear-gradient(135deg, #2d76a0, #0b34b8);
     color: white;
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
- 
+
     transition: 0.3s;
 }
- 
+
 /* Hover */
 #form button:hover {
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
- 
+
 /* Links */
 .links {
     margin-top: 20px;
     display: flex;
     justify-content: space-between;
 }
- 
+
 /* Estilo links */
 .links a {
     font-size: 15px;
@@ -96,7 +96,7 @@ body {
     text-decoration: none;
     transition: 0.3s;
 }
- 
+
 /* Hover links */
 .links a:hover {
     text-decoration: underline;

@@ -153,3 +153,18 @@ a:hover {
     height: 50px;
   }
 }
+
+
+.voltar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.btn-voltar {
+    position: absolute;
+    right: 172px;
+    text-decoration: none;
+   top: 290px;
+  }

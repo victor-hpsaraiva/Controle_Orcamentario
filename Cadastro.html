@@ -1,68 +1,63 @@
 <!doctype html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/cadastro.css" />
-    <title>SmartSpend</title>
-    <link rel="icon" href="img/logo.png" />
-  </head>
 
-  <body>
-    <header>
-      <nav>
-        <ul>
-          <li><a href="#"></a></li>
-          <li><a href="#"></a></li>
-          <li><a href="login.html"></a></li>
-        </ul>
-         
-      </nav>
-    </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/cadastro.css" />
+  <title>SmartSpend</title>
+  <link rel="icon" href="img/logo.png" />
+</head>
 
-    <main>
-      <section>
-        <h1>Cadastro</h1>
-      </section>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="#"></a></li>
+        <li><a href="#"></a></li>
+        <li><a href="login.html"></a></li>
+      </ul>
 
-      <div class="cadastro">
-        <form
-          onsubmit="
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h1>Cadastro</h1>
+    </section>
+
+    <div class="cadastro">
+      <form onsubmit="
             cadastrarUsuario();
             return false;
-          "
-        >
-          <label for="nome">Nome</label>
-          <input type="text" id="nome" name="nome" required />
+          ">
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" name="nome" required />
 
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" required />
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required />
 
-          <label for="senha">Senha</label>
+        <label for="senha">Senha</label>
 
-          <input type="password" id="senha" placeholder="Senha" required />
+        <input type="password" id="senha" placeholder="Senha" required />
 
-          <small>
-            Mínimo de 8 caracteres, contendo letra maiúscula, minúscula, número e
-            caractere especial.
-          </small>
+        <small>
+          Mínimo de 8 caracteres, contendo letra maiúscula, minúscula, número e
+          caractere especial.
+        </small>
 
-          <label for="confirsenha">Confirmar Senha</label>
-          <input
-            type="password"
-            id="confirsenha"
-            placeholder="Confirmar senha"
-            required
-          />
+        <label for="confirsenha">Confirmar Senha</label>
+        <input type="password" id="confirsenha" placeholder="Confirmar senha" required />
 
-          <input type="submit" id="btncadastrar" value="Cadastrar" />
-        </form>
-        
-  
+        <input type="submit" id="btncadastrar" value="Cadastrar" />
+      </form>
+
+      <div class="voltar">
+        <a href="telaLogin.html" class="btn-voltar">Voltar
       </div>
+  </main>
 
-    </main>
+  <script src="js/scriptCadastrar.js"></script>
+</body>
 
-    <script src="js/scriptCadastrar.js"></script>
-  </body>
 </html>
